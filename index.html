@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiCrop - Recommendation Engine</title>
+    <!-- Beautiful Bootstrap UI theme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(to right, #e1eec3, #f05053); min-height: 100vh; display: flex; align-items: center; }
+        .card { border-radius: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="card p-5 shadow mx-auto bg-white" style="max-width: 650px;">
+            <h2 class="text-center text-success mb-4 fw-bold">🌾 OptiCrop Engine 🌾</h2>
+            <p class="text-muted text-center mb-4">Enter the soil and environmental values below to find the best crop.</p>
+            
+            <form action="/predict" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label font-weight-bold">Nitrogen (N)</label>
+                        <input type="number" name="N" class="form-control" placeholder="e.g. 90" required step="any">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Phosphorus (P)</label>
+                        <input type="number" name="P" class="form-control" placeholder="e.g. 42" required step="any">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Potassium (K)</label>
+                        <input type="number" name="K" class="form-control" placeholder="e.g. 43" required step="any">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Temperature (°C)</label>
+                        <input type="number" name="temperature" class="form-control" placeholder="e.g. 21.8" required step="any">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Humidity (%)</label>
+                        <input type="number" name="humidity" class="form-control" placeholder="e.g. 82.0" required step="any">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">pH Level</label>
+                        <input type="number" name="ph" class="form-control" placeholder="0.0 - 14.0" required step="any" min="0" max="14">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Rainfall (mm)</label>
+                        <input type="number" name="rainfall" class="form-control" placeholder="e.g. 202.9" required step="any">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mt-4 btn-lg shadow-sm">Predict Best Crop</button>
+            </form>
+            
+            <!-- This section only displays if a prediction is made -->
+            {% if prediction %}
+            <div class="alert alert-success text-center mt-4 border-0 shadow-sm">
+                <h4 class="mb-0">Recommended Crop: <span class="badge bg-success font-weight-bold">{{ prediction.upper() }}</span></h4>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
